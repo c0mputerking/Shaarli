@@ -144,12 +144,19 @@ if (newVersionDismiss != null) {
  * Login button
  */
 var loginButton = document.getElementById('login-button');
+var loginBlock = document.getElementById('header-login-form');
+
 loginButton.addEventListener('click', function(event) {
     event.preventDefault();
-    var loginBlock = document.getElementById('header-login-form');
-    loginBlock.style.display = 'block';
     loginBlock.classList.toggle('open');
     // Focus on login field.
-    loginBlock.firstElementChild.focus();
+
     document.getElementById('content').style.boxShadow = 'none';
 });
+
+loginBlock.addEventListener('transitionend', function() {
+    loginBlock.firstElementChild.focus();
+});
+
+var hiddenReturnurl = document.getElementsByName('returnurl');
+hiddenReturnurl.value = window.location.href;

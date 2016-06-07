@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  {include="includes"}
+</head>
+<body>
+<div id="editlinkform" class="pure-g">
+  {if="$source !== 'firefoxsocialapi'"}
+    {include="page.header"}
+  {/if}
+    <div class="pure-u-lg-1-5 pure-u-1-8"></div>
+    <form method="post" name="" class="page-form pure-u-lg-3-5 pure-u-3-4" >
+      <h2>Shaare</h2>
+      <input type="hidden" name="lf_linkdate" value="{$link.linkdate}">
+      <label for="lf_url">URL</label>
+      <div>
+        <input type="text" name="lf_url" id="lf_url" value="{$link.url}" class="lf_input">
+      </div>
+      <label for="lf_title"><i>Title</i></label><br><input type="text" name="lf_title" id="lf_title"
+                                                           value="{$link.title}" class="lf_input"><br>
+      <label for="lf_description"><i>Description</i></label><br><textarea name="lf_description" id="lf_description"
+                                                                          rows="4"
+                                                                          cols="25">{$link.description}</textarea><br>
+      <label for="lf_tags"><i>Tags</i></label><br>
+      <input type="text" name="lf_tags" id="lf_tags" value="{$link.tags}" class="lf_input"
+             data-list="{loop=" $tags"}{$key}, {/loop}" data-multiple autocomplete="off" ><br>
+
+      {loop="$edit_link_plugin"}
+      {$value}
+      {/loop}
+
+      {if="($link_is_new && $GLOBALS['privateLinkByDefault']==true) || $link.private == true"}
+      <input type="checkbox" checked="checked" name="lf_private" id="lf_private">
+      &nbsp;<label for="lf_private"><i>Private</i></label><br>
+      {else}
+      <input type="checkbox" name="lf_private" id="lf_private">
+      &nbsp;<label for="lf_private"><i>Private</i></label><br>
+      {/if}
+      <input type="submit" value="Save" name="save_edit" class="bigbutton">
+      <input type="submit" value="Cancel" name="cancel_edit" class="bigbutton">
+      {if="!$link_is_new"}<input type="submit" value="Delete" name="delete_link" class="bigbutton delete"
+                                 onClick="return confirmDeleteLink();">{/if}
+      <input type="hidden" name="token" value="{$token}">
+      {if="$http_referer"}<input type="hidden" name="returnurl" value="{$http_referer}">{/if}
+    </form>
+  </div>
+</div>
+{if="$source !== 'firefoxsocialapi'"}
+{include="page.footer"}
+{/if}
+<script>
+  awesompleteUniqueTag('#lf_tags');
+  if (!{$link.title}
+  )
+  {
+    document.linkform.lf_title.focus();
+  }
+  else
+  if (!{$link.description}
+  )
+  {
+    document.linkform.lf_description.focus();
+  }
+  else
+  {
+    document.linkform.lf_tags.focus();
+  }
+</script>
+</body>
+</html>

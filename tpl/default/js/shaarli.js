@@ -149,11 +149,10 @@ var loginBlock = document.getElementById('header-login-form');
 loginButton.addEventListener('click', function(event) {
     event.preventDefault();
     loginBlock.classList.toggle('open');
-    // Focus on login field.
-
     document.getElementById('content').style.boxShadow = 'none';
 });
 
+// Focus on login field.
 loginBlock.addEventListener('transitionend', function() {
     loginBlock.firstElementChild.focus();
 });
